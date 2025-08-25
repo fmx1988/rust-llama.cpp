@@ -259,6 +259,10 @@ fn compile_llama(cxx: &mut Build, cxx_flags: &str, out_path: &Path, ggml_type: &
 fn main() {
     let out_path = PathBuf::from(env::var("OUT_DIR").expect("No out dir found"));
 
+    if cfg!(target_env = "msvc") {
+    println!("cargo:rustc-link-arg=/FORCE:MULTIPLE");
+}
+
     compile_bindings(&out_path);
 
     let mut cx_flags = String::from("");
